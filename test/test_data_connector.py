@@ -22,6 +22,6 @@ class TestCSVDataConnector:
 
         results = cdc.closest_results(x=1, y=2)
 
-        results_operators = [item['Operateur'] for item in results]
+        results_operators = [item["Operateur"] for item in results]
 
         assert set(results_operators) == {20801, 20810, 20815, 20820}

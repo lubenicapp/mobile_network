@@ -60,17 +60,17 @@ class TestNetworkCoverage:
         network = NetworkCoverage(address="carrefour des Poulets Cachan 94230")
         results = network.coverage
 
-        assert 'orange' in list(results.keys())
-        assert 'SFR' in list(results.keys())
-        assert 'free' in list(results.keys())
-        assert 'bouygues' in list(results.keys())
+        assert "orange" in list(results.keys())
+        assert "SFR" in list(results.keys())
+        assert "free" in list(results.keys())
+        assert "bouygues" in list(results.keys())
 
     @patch("app.network_coverage.GovernmentLocator")
     @patch("app.network_coverage.CSVDataConnector.closest_results")
     def test_coverage_contains_entry_for_each_network(
-            self,
-            mock_closest_results,
-            mock_gov_locator,
+        self,
+        mock_closest_results,
+        mock_gov_locator,
     ):
         def locate_address(address):
             return 651365, 6863750
@@ -81,4 +81,4 @@ class TestNetworkCoverage:
         network = NetworkCoverage(address="rue poulet Paris 75000")
         results = network.coverage
 
-        assert results['orange'].keys() == {'2G', '3G', '4G'}
+        assert results["orange"].keys() == {"2G", "3G", "4G"}

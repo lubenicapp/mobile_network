@@ -31,7 +31,9 @@ class NetworkCoverage:
                 data = {}
             results.update(
                 {
-                    self._provider_name(provider_data["Operateur"]): self._provider_network(data),
+                    self._provider_name(
+                        provider_data["Operateur"]
+                    ): self._provider_network(data),
                 }
             )
         return results
