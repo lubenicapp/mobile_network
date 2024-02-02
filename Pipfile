@@ -7,10 +7,17 @@ name = "pypi"
 fastapi = "*"
 uvicorn = {extras = ["standard"], version = "*"}
 requests = "*"
-pytest = "*"
 httpx = "*"
+pandas = "*"
+numpy = "*"
+pyarrow = "*"
+pyproj = "*"
 
 [dev-packages]
+flake8 = "*"
+black = "*"
+pytest = "*"
+isort = "*"
 
 [requires]
 python_version = "3.12"
