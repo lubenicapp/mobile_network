@@ -2,7 +2,6 @@ from unittest.mock import patch
 
 from app.network_coverage import NetworkCoverage
 
-
 SAMPLE_DATA = [
     {
         "Operateur": 20801,
