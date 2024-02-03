@@ -1,0 +1,11 @@
+---
+version: '3.3'
+
+services:
+  mobile_network:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: mobile_network
+    ports:
+      - "8000:80"
