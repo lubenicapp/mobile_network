@@ -50,6 +50,9 @@ class TestNetworkCoverage:
         mock_closest_results,
         mock_gov_locator,
     ):
+        """
+        We expect the response to return information for each provider
+        """
         def locate_address(address):
             return 651365, 6863750
 
@@ -71,13 +74,16 @@ class TestNetworkCoverage:
         mock_closest_results,
         mock_gov_locator,
     ):
+        """
+        We expect the response to contain information for each Network for a given Provider
+        """
         def locate_address(address):
             return 651365, 6863750
 
         mock_gov_locator.locate_address.side_effect = locate_address
         mock_closest_results.return_value = SAMPLE_DATA
 
-        network = NetworkCoverage(address="rue poulet Paris 75000")
+        network = NetworkCoverage(address="rue poulet Paris 75018")
         results = network.coverage
 
         assert results["orange"].keys() == {"2G", "3G", "4G"}

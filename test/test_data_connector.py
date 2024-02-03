@@ -17,12 +17,14 @@ Operateur;x;y;2G;3G;4G
 class TestCSVDataConnector:
 
     def test_closest_results_returns_one_entry_per_provider(self):
-        data = pd.read_csv(StringIO(CSV_DATA), sep=";")
+        """
+        Checks that one row per provider is in the results
+        """
 
+        data = pd.read_csv(StringIO(CSV_DATA), sep=";")
         cdc = CSVDataConnector(data_source=data)
 
         results = cdc.closest_results(x=1, y=2)
-
         results_operators = [item["Operateur"] for item in results]
 
         assert set(results_operators) == {20801, 20810, 20815, 20820}

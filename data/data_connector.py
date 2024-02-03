@@ -9,6 +9,9 @@ DATA_SOURCE = "./data/2018_01_Sites_mobiles_2G_3G_4G_France_metropolitaine_L93.c
 
 
 class CSVDataConnector:
+    """
+    This class gives access to data from the csv file
+    """
     def __init__(self, *, data_source: Union[pd.DataFrame, None] = None) -> None:
         if data_source is None:
             self.data = pd.read_csv(DATA_SOURCE, sep=";")
@@ -18,6 +21,9 @@ class CSVDataConnector:
 
     @logit
     def closest_results(self, *, x: float, y: float) -> list:
+        """
+        Returns the closest row for each provider based on euclidiean distance of both x, y
+        """
         self.data["distance"] = np.sqrt(
             (self.data["x"] - x) ** 2 + (self.data["y"] - y) ** 2
         )
