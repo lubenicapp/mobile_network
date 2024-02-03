@@ -15,6 +15,11 @@ class GovernmentLocator:
     @staticmethod
     @logit
     def locate_address(*, address: str) -> tuple:
+        """
+        https://adresse.data.gouv.fr/api-doc/adresse
+
+        returns the "coordinates" object of the first result
+        """
         response = requests.get(GovernmentLocator.ENDPOINT, params={"q": address})
         first_result = response.json().get("features")[0]["geometry"]["coordinates"]
         return gps_to_lambert(first_result[0], first_result[1])

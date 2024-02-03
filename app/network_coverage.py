@@ -18,12 +18,22 @@ class NetworkCoverage:
 
     @property
     @logit
-    def coverage(self):
+    def coverage(self) -> dict:
+        """
+        Get geo data from address
+        Get rows in Data for each network 'Operateur' that is closest to geo coordinates
+        If there is no Operateur covering within RELEVANT_RESULT_MAX_DISTANCE, we consider the area not covered
+        """
         x, y = GovernmentLocator.locate_address(address=self.address)
         coverage_data = CSVDataConnector().closest_results(x=x, y=y)
         return self._format_results(coverage_data)
 
-    def _format_results(self, coverage_data: list):
+    def _format_results(self, coverage_data: list) -> dict:
+        """
+        get raw data and format it like:
+        { 'orange': {'2G': true, '3G': true, '4G': true, ''}  ...
+
+        """
         results = {}
         for provider_data in coverage_data:
             data = provider_data
