@@ -11,7 +11,7 @@ app = FastAPI()
 
 
 @app.get("/")
-async def say_hello(q: str = None):
+async def get_coverage(q: str = None):
     """
     :param str q: string address for a location in France
 
