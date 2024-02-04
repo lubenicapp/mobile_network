@@ -1,9 +1,8 @@
 from fastapi import FastAPI
 from fastapi.exceptions import HTTPException
-from starlette.status import HTTP_422_UNPROCESSABLE_ENTITY, HTTP_406_NOT_ACCEPTABLE
+from starlette.status import HTTP_422_UNPROCESSABLE_ENTITY, HTTP_400_BAD_REQUEST
 
 from .network_coverage import NetworkCoverage
-from .government_locator import LocatorError
 
 app = FastAPI()
 
@@ -22,7 +21,7 @@ async def say_hello(q: str = None):
     try:
         coverage = NetworkCoverage(address=q).coverage
         return coverage
-    except LocatorError as e:
+    except Exception as e:
         raise HTTPException(
-            status_code=HTTP_406_NOT_ACCEPTABLE, detail=str(e)
+            status_code=HTTP_400_BAD_REQUEST, detail=str(e)
         )
