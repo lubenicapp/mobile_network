@@ -1,3 +1,4 @@
+from pathlib import Path
 from typing import Union
 
 import numpy as np
@@ -16,7 +17,7 @@ class CSVDataConnector:
     """
     This class gives access to data from the csv file
     """
-    def __init__(self, *, data_source: Union[str, None] = None) -> None:
+    def __init__(self, *, data_source: Union[Path, None] = None) -> None:
         """
         Args:
               data_source: path to CSV file, or NONE for default
