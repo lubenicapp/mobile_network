@@ -8,26 +8,43 @@ from app.utils.log import logit
 DATA_SOURCE = "./data/2018_01_Sites_mobiles_2G_3G_4G_France_metropolitaine_L93.csv"
 
 
+class CSVError(Exception):
+    ...
+
+
 class CSVDataConnector:
     """
     This class gives access to data from the csv file
     """
-    def __init__(self, *, data_source: Union[pd.DataFrame, None] = None) -> None:
-        if data_source is None:
-            self.data = pd.read_csv(DATA_SOURCE, sep=";")
-        else:
-            self.data = data_source
-        self.data["Operateur"] = self.data["Operateur"].astype(int)
+    def __init__(self, *, data_source: Union[str, None] = None) -> None:
+        """
+        Args:
+              data_source: path to CSV file, or NONE for default
+        """
+        self.data_source = data_source or DATA_SOURCE
+        self.dataframe = None
 
     @logit
     def closest_results(self, *, x: float, y: float) -> list:
         """
-        Returns the closest row for each provider based on euclidiean distance of both x, y
+        Returns the closest row for each provider based on Euclidean distance of both x, y
         """
-        self.data["distance"] = np.sqrt(
-            (self.data["x"] - x) ** 2 + (self.data["y"] - y) ** 2
-        )
+        data = self.data
+        data["distance"] = np.sqrt((data["x"] - x) ** 2 + (data["y"] - y) ** 2)
+        return data.loc[data.groupby("Operateur")["distance"].idxmin()].to_dict(orient="records")
 
-        return self.data.loc[
-            self.data.groupby("Operateur")["distance"].idxmin()
-        ].to_dict(orient="records")
+    @property
+    @logit
+    def data(self) -> pd.DataFrame:
+        if self.dataframe is None:
+            self._prepare_data()
+        return self.dataframe
+
+    def _prepare_data(self) -> pd.DataFrame:
+        try:
+            df = pd.read_csv(self.data_source, sep=";")
+            df["Operateur"] = df["Operateur"].astype(int)
+            self.dataframe = df
+            return self.dataframe
+        except Exception as e:
+            raise CSVError('Unable to load data')
