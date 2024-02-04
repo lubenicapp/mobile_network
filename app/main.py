@@ -1,9 +1,12 @@
+import logging
+
 from fastapi import FastAPI
 from fastapi.exceptions import HTTPException
 from starlette.status import HTTP_422_UNPROCESSABLE_ENTITY, HTTP_400_BAD_REQUEST
 
 from .network_coverage import NetworkCoverage
 
+logging.basicConfig(level=logging.INFO)
 app = FastAPI()
 
 

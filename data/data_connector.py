@@ -37,9 +37,7 @@ class CSVDataConnector:
     @property
     @logit
     def data(self) -> pd.DataFrame:
-        if self.dataframe is None:
-            self._prepare_data()
-        return self.dataframe
+        return self.dataframe or self._prepare_data()
 
     def _prepare_data(self) -> pd.DataFrame:
         try:

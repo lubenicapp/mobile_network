@@ -46,7 +46,6 @@ class NetworkCoverage:
             results[provider_name] = self._provider_network(data)
         return results
 
-    @logit
     def _provider_name(self, code: int):
         return self.NETWORK_PROVIDERS.get(code, "Unknown provider")
 
