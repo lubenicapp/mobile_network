@@ -6,6 +6,10 @@ from app.utils.log import logit
 warnings.filterwarnings(action="ignore", category=FutureWarning)
 
 
+class LocatorError(Exception):
+    ...
+
+
 class GovernmentLocator:
     """
     Wrapper around the API api-adresse.data.gouv.fr
@@ -24,5 +28,8 @@ class GovernmentLocator:
         (documentation : https://adresse.data.gouv.fr/api-doc/adresse)
         """
         response = requests.get(GovernmentLocator.ENDPOINT, params={"q": address})
-        first_result = response.json().get("features")[0]["properties"]
-        return first_result['x'], first_result['y']
+        try:
+            first_result = response.json().get("features")[0]["properties"]
+            return first_result['x'], first_result['y']
+        except IndexError:
+            raise LocatorError(f"No results found for address {address}")

@@ -39,15 +39,10 @@ class NetworkCoverage:
         results = {}
         for provider_data in coverage_data:
             data = provider_data
+            provider_name = self._provider_name(data['Operateur'])
             if provider_data["distance"] > self.RELEVANT_RESULT_MAX_DISTANCE:
                 data = {}
-            results.update(
-                {
-                    self._provider_name(
-                        provider_data["Operateur"]
-                    ): self._provider_network(data),
-                }
-            )
+            results[provider_name] = self._provider_network(data)
         return results
 
     @logit

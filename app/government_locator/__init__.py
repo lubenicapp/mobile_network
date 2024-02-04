@@ -1,3 +1,3 @@
-from .government_locator import GovernmentLocator
+from .government_locator import GovernmentLocator, LocatorError
 
-__all__ = ["GovernmentLocator"]
+__all__ = ["GovernmentLocator", "LocatorError"]
