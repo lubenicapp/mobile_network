@@ -1,5 +1,5 @@
-import warnings
 import requests
+import warnings
 
 from app.utils.log import logit
 
@@ -21,7 +21,7 @@ class GovernmentLocator:
     def locate_address(*, address: str) -> tuple:
         """
         Input:
-            address: string address for a french location, example "16 rue poulet 75018 Paris"
+            address: string address for a French location, example "16 rue poulet 75018 Paris"
         Output:
             x, y, location in lambert93 coordinates system for the first result suggested by th API
 

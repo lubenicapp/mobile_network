@@ -1,3 +1,5 @@
+from typing import List, Dict
+
 from app.government_locator import GovernmentLocator
 from app.utils.log import logit
 from data import CSVDataConnector
@@ -30,11 +32,10 @@ class NetworkCoverage:
         coverage_data = CSVDataConnector().closest_results(x=x, y=y)
         return self._format_results(coverage_data)
 
-    def _format_results(self, coverage_data: list) -> dict:
+    def _format_results(self, coverage_data: List[Dict]) -> dict:
         """
         get raw data and format it like:
         { 'orange': {'2G': true, '3G': true, '4G': true, ''}  ...
-
         """
         results = {}
         for provider_data in coverage_data:
@@ -50,7 +51,7 @@ class NetworkCoverage:
         return self.NETWORK_PROVIDERS.get(code, "Unknown provider")
 
     @staticmethod
-    def _provider_network(provider_data):
+    def _provider_network(provider_data: dict) -> dict:
         return {
             "2G": provider_data.get("2G") == 1,
             "3G": provider_data.get("3G") == 1,

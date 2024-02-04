@@ -22,6 +22,4 @@ async def say_hello(q: str = None):
         coverage = NetworkCoverage(address=q).coverage
         return coverage
     except Exception as e:
-        raise HTTPException(
-            status_code=HTTP_400_BAD_REQUEST, detail=str(e)
-        )
+        raise HTTPException(status_code=HTTP_400_BAD_REQUEST, detail=str(e))
