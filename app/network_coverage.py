@@ -4,7 +4,9 @@ from data import CSVDataConnector
 
 
 class NetworkCoverage:
-
+    """
+    Higher level class that gets data from different sources and present a formatted result
+    """
     RELEVANT_RESULT_MAX_DISTANCE = 5000  # m
     NETWORK_PROVIDERS = {
         20801: "orange",
