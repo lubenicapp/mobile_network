@@ -1,7 +1,3 @@
-from io import StringIO
-
-import pandas as pd
-
 from data import CSVDataConnector
 
 CSV_DATA = """
